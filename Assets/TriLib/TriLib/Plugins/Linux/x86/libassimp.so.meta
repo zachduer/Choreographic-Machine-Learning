@@ -1,0 +1,37 @@
+fileFormatVersion: 2
+guid: 0b7f9ce33ccf9a142a3db8dd8f64472b
+PluginImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  iconMap: {}
+  executionOrder: {}
+  isPreloaded: 0
+  isOverridable: 0
+  platformData:
+  - first:
+      Any: 
+    second:
+      enabled: 0
+      settings: {}
+  - first:
+      Editor: Editor
+    second:
+      enabled: 1
+      settings:
+        CPU: x86
+        DefaultValueInitialized: true
+        OS: Linux
+  - first:
+      Standalone: Linux
+    second:
+      enabled: 1
+      settings:
+        CPU: x86
+  - first:
+      Standalone: LinuxUniversal
+    second:
+      enabled: 1
+      settings: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

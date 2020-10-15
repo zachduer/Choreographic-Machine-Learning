@@ -1,0 +1,30 @@
+fileFormatVersion: 2
+guid: e4a8549a1554447d5802f8ed7f95923a
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Noyh Geometric Slim
+  fontNames:
+  - Noyh Geometric Slim
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: f2a34f20cd7164cc3b8a08be4ab6c0f7, type: 3}
+  - {fileID: 12800000, guid: 4364c3b1edccd4b57a912ca89d874355, type: 3}
+  - {fileID: 12800000, guid: f28aba83b69e64285837d1ac170634a5, type: 3}
+  - {fileID: 12800000, guid: 509051a6c889846a597fb66abf14b090, type: 3}
+  - {fileID: 12800000, guid: d3e63d3cd6ec54e568b1a249728b1c9c, type: 3}
+  - {fileID: 12800000, guid: 52dcbc8d367b84c86a02d778cc838595, type: 3}
+  - {fileID: 12800000, guid: c2fb98cd3be5b43b59fbb1c626c72539, type: 3}
+  - {fileID: 12800000, guid: 0290e91eea211484da5e836f591a5827, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

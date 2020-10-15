@@ -1,0 +1,36 @@
+fileFormatVersion: 2
+guid: f50cf73df76ba1640b76ef464750966e
+PluginImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  iconMap: {}
+  executionOrder: {}
+  isPreloaded: 0
+  isOverridable: 0
+  platformData:
+  - first:
+      Android: Android
+    second:
+      enabled: 1
+      settings:
+        CPU: ARM64
+  - first:
+      Any: 
+    second:
+      enabled: 0
+      settings: {}
+  - first:
+      Editor: Editor
+    second:
+      enabled: 0
+      settings:
+        DefaultValueInitialized: true
+  - first:
+      Lumin: Lumin
+    second:
+      enabled: 1
+      settings:
+        CPU: ARM64
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
