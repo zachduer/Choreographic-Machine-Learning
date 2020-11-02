@@ -127,20 +127,20 @@ public class OSCMessageReceiver : MonoBehaviour
                     if (conversionComplete == 1)
                     {
                         Debug.Log("Program succeeded."); //Replace 
-                        messageLogger.messageReceived("Program suceeded.");
+                        //messageLogger.messageReceived("Program suceeded.");
                     }
                     else
                     {
                         Debug.Log("Program failed."); //Replace
-                        messageLogger.messageReceived("Program failed.");
-                        Debug.Log(errorMessage);
-                        messageLogger.messageReceived(errorMessage);
+                        //messageLogger.messageReceived("Program failed.");
+                        Debug.Log(errorMessage);  
+                        //messageLogger.messageReceived(errorMessage);
                     }
                 }
                 else if (String.Compare(message.Address, "/Recording Started/") == 0)
                 {
                     Debug.Log("Recording Started.");//Put start recording function
-                    messageLogger.messageReceived("Recording Started.");
+                    //messageLogger.messageReceived("Recording Started.");
                 }
             }
         }
@@ -153,20 +153,20 @@ public class OSCMessageReceiver : MonoBehaviour
                 if (conversionComplete == 1)
                 {
                     Debug.Log("Program succeeded."); //Replace
-                    messageLogger.messageReceived("Program suceeded.");
+                    //messageLogger.messageReceived("Program suceeded.");
                 }
                 else
                 {
                     Debug.Log("Program failed."); //Replace
-                    messageLogger.messageReceived("Program failed.");
+                    //messageLogger.messageReceived("Program failed.");
                     Debug.Log(errorMessage);
-                    messageLogger.messageReceived(errorMessage);
+                   // messageLogger.messageReceived(errorMessage);
                 }
             }
             else if (String.Compare(((OscMessage)packet).Address, "/Recording Started/") == 0)
             {
                 Debug.Log("Recording Started.");//Put start recording function
-                messageLogger.messageReceived("Recording Started.");
+               // messageLogger.messageReceived("Recording Started.");
             }
         }
     }

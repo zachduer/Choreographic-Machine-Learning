@@ -31,7 +31,7 @@ using Bespoke.Common.Osc;
 public class OSCMessageSender : MonoBehaviour
 {
     // Custom error logger
-    public messageLog messageLogger;
+    //public messageLog messageLogger;
 
     public static int localPort = 10025; // this could be any port number, 10025 is randomly chosen
 
@@ -59,12 +59,12 @@ public class OSCMessageSender : MonoBehaviour
     }
     */
 
-    public void buttonPress()
-    {
-        UnityEngine.Debug.Log("osc message sender clicked.");
-        messageLogger.messageReceived("osc message sender clicked.");
-        stopRealtimeRecording(); //Call when user stops recording
-    }
+    //public void buttonPress()
+    //{
+    //    UnityEngine.Debug.Log("osc message sender clicked.");
+    //    messageLogger.messageReceived("osc message sender clicked.");
+    //    stopRealtimeRecording(); //Call when user stops recording
+    //}
 
     public void stopRealtimeRecording()
     {

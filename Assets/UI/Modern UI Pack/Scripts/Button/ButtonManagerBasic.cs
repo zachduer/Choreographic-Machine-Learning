@@ -49,7 +49,7 @@ namespace Michsky.UI.ModernUIPack
 
         public void UpdateUI()
         {
-            normalText.text = buttonText;
+            //normalText.text = buttonText;
         }
 
         public void OnPointerEnter(PointerEventData eventData)

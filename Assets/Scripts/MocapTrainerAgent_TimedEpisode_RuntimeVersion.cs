@@ -31,6 +31,9 @@ public class MocapTrainerAgent_TimedEpisode_RuntimeVersion : Agent
 
     string[] jointNames;
     Transform[] joints;
+   
+    // the values derived from the labels for this recording
+    int[] recordingVectorActionValues;
 
     float episodeTimer; // counts up time in non-real time, but as much time is allowed to pass in the virtual environment.  (so, the training slowing down the program doesn't matter because we get an accurate count of how much game time has passed).
 
@@ -53,10 +56,11 @@ public class MocapTrainerAgent_TimedEpisode_RuntimeVersion : Agent
 
     // The commented out line will work when we have a data structure for features working
     //public void Init(string _recordingName, string[] _jointNamesBaby, string _behaviorName, FeatureLabels _featureLabels)
-    public void Init(string _recordingName, string[] _jointNamesBaby, string _behaviorName)
+    public void Init(string _recordingName, string[] _jointNamesBaby, string _behaviorName, int[] _recordingVectorActionValues)
     {
         recordingName = _recordingName;
         jointNames = _jointNamesBaby;
+        recordingVectorActionValues = _recordingVectorActionValues;
         //featureLabels = _featureLabels;     // The commented out line will work when we have a data structure for features working
     }
 
@@ -136,15 +140,14 @@ public class MocapTrainerAgent_TimedEpisode_RuntimeVersion : Agent
     {
         numSteps++;
 
-        currentAnimationTime = anim["Animation Stack"].time;
+        currentAnimationTime = anim[recordingName].time;
 
         for (int i = 0; i < vectorAction.Length; i++)
         {
             if (episodeTimer < episodeDuration)
             {
                 // The commented out line works when we have a data structure for features working
-                //if (vectorAction[i] == featureLabels.unlabeledFeatures[i])
-                if (vectorAction[i] == 0)
+                if (vectorAction[i] == recordingVectorActionValues[i])
                 {
                     SetReward(.1f);
                 }
@@ -157,8 +160,7 @@ public class MocapTrainerAgent_TimedEpisode_RuntimeVersion : Agent
             {
                 numEpisodes++;
 
-                //if (vectorAction[i] == featureLabels.unlabeledFeatures[i])
-                if (vectorAction[i] == 0)
+                if (vectorAction[i] == recordingVectorActionValues[i])
                 {
                     SetReward(1.0f);
                     validityOfOutputs.Add(true);
