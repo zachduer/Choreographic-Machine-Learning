@@ -44,7 +44,7 @@ public class Recording
 //    public int[] featureRanges; // the number of possible integers in each of the columns of data
 //    public Dictionary<string, int> labeledFeatures = new Dictionary<string, int>();
 //    public int[] unlabeledFeatures;
-//}
+//} 
 
 
 public class DataManager : MonoBehaviour
@@ -201,7 +201,8 @@ public class DataManager : MonoBehaviour
         {
             Debug.Log("There is no save data!");
         }
-        //savedRecordingsByName.Clear();
+        savedRecordingsByName.Clear();
+        savedModelsByName.Clear();
     }
 }
 

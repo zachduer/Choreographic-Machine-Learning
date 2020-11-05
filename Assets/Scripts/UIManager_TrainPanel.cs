@@ -48,22 +48,22 @@ public class UIManager_TrainPanel : MonoBehaviour
         trainButtonActive.SetActive(false);
     }
 
-    public void SelectModel(TMP_Dropdown dropdown)
-    {
-        RefreshRecordingsUIList();
+    //public void SelectModel(TMP_Dropdown dropdown)
+    //{
+    //    RefreshRecordingsUIList();
 
-        // if we don't have any models yet, and therefore no dropdown option to pick a model, don't try to select a model
-        // but make sure to clear the labels list
-        if (dropdown.options.Count <= 0)
-        {
-            //UpdateLabelToggles(new List<string>());
-            return;
-        }
-        string selectedModelName = dropdown.options[dropdown.value].text;
-        //Debug.Log("selectedModelName: " + selectedModelName);
-        //List<string> labels = dataManager.GetLabelsFromModel(selectedModelName);
-        //UpdateLabelToggles(labels);
-    }
+    //    // if we don't have any models yet, and therefore no dropdown option to pick a model, don't try to select a model
+    //    // but make sure to clear the labels list
+    //    //if (dropdown.options.Count <= 0)
+    //    //{
+    //        //UpdateLabelToggles(new List<string>());
+    //   //     return;
+    //    //}
+    //    //string selectedModelName = dropdown.options[dropdown.value].text;
+    //    //Debug.Log("selectedModelName: " + selectedModelName);
+    //    //List<string> labels = dataManager.GetLabelsFromModel(selectedModelName);
+    //    //UpdateLabelToggles(labels);
+    //}
 
     public void PreviewRecording(string recordingName)
     {
@@ -144,6 +144,9 @@ public class UIManager_TrainPanel : MonoBehaviour
         // add an RecordingUI object for that recording name
         for (int i = 0; i < recordingNames.Count; i++)
         {
+            //Debug.Log("recording name: " + recordingNames[i]);
+            //Debug.Log("model name for that recording from data manager: " + dataManager.GetModelFromRecording(recordingNames[i]));
+            //Debug.Log("selected model name: " + selectedModelName);
             if (dataManager.GetModelFromRecording(recordingNames[i]) == selectedModelName)
             {
                 GameObject newUIRecordingtem = Instantiate(UI_RecordingItem_Prefab);

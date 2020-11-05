@@ -16,19 +16,20 @@ public class UIManager : MonoBehaviour
     public GameObject recordPanel;
     public GameObject trainPanel;
     public GameObject filePanel;
-    public GameObject applyPanel;
+    public GameObject classifyPanel;
     public GameObject resultPanel;
 
     public GameObject modelTab;
     public GameObject recordTab;
     public GameObject trainTab;
     public GameObject fileTab;
-    public GameObject applyTab;
+    public GameObject classifyTab;
     public GameObject resultTab;
 
     public UIManager_RecordPanel uiManager_RecordPanel;
     public UIManager_ModelPanel uiManager_ModelPanel;
     public UIManager_TrainPanel uiManager_TrainPanel;
+    public UIManager_ClassifyPanel uiManager_ClassifyPanel;
 
     //public TMP_Dropdown recordPanel_ModelToApplyDropdown;
 
@@ -96,7 +97,7 @@ public class UIManager : MonoBehaviour
         recordTab.GetComponentInChildren<Text>().color = subTitleColor;
         trainTab.GetComponentInChildren<Text>().color = subTitleColor;
         fileTab.GetComponentInChildren<Text>().color = subTitleColor;
-        applyTab.GetComponentInChildren<Text>().color = subTitleColor;
+        classifyTab.GetComponentInChildren<Text>().color = subTitleColor;
         resultTab.GetComponentInChildren<Text>().color = subTitleColor;
 
         introPanel.SetActive(true);
@@ -104,7 +105,7 @@ public class UIManager : MonoBehaviour
         recordPanel.SetActive(false);
         trainPanel.SetActive(false);
         filePanel.SetActive(false);
-        applyPanel.SetActive(false);
+        classifyPanel.SetActive(false);
         resultPanel.SetActive(false);
     }
 
@@ -114,14 +115,14 @@ public class UIManager : MonoBehaviour
         recordTab.GetComponentInChildren<Text>().color = subTitleColor;
         trainTab.GetComponentInChildren<Text>().color = subTitleColor;
         fileTab.GetComponentInChildren<Text>().color = subTitleColor;
-        applyTab.GetComponentInChildren<Text>().color = subTitleColor;
+        classifyTab.GetComponentInChildren<Text>().color = subTitleColor;
         resultTab.GetComponentInChildren<Text>().color = subTitleColor;
 
         modelPanel.SetActive(true);
         recordPanel.SetActive(false);
         trainPanel.SetActive(false);
         filePanel.SetActive(false);
-        applyPanel.SetActive(false);
+        classifyPanel.SetActive(false);
         resultPanel.SetActive(false);
 
         uiManager_ModelPanel.RefreshPanel();
@@ -133,14 +134,14 @@ public class UIManager : MonoBehaviour
         recordTab.GetComponentInChildren<Text>().color = titleColor;
         trainTab.GetComponentInChildren<Text>().color = subTitleColor;
         fileTab.GetComponentInChildren<Text>().color = subTitleColor;
-        applyTab.GetComponentInChildren<Text>().color = subTitleColor;
+        classifyTab.GetComponentInChildren<Text>().color = subTitleColor;
         resultTab.GetComponentInChildren<Text>().color = subTitleColor;
 
         modelPanel.SetActive(false);
         recordPanel.SetActive(true);
         trainPanel.SetActive(false);
         filePanel.SetActive(false);
-        applyPanel.SetActive(false);
+        classifyPanel.SetActive(false);
         resultPanel.SetActive(false);
 
         uiManager_RecordPanel.RefreshPanel();
@@ -152,17 +153,37 @@ public class UIManager : MonoBehaviour
         recordTab.GetComponentInChildren<Text>().color = subTitleColor;
         trainTab.GetComponentInChildren<Text>().color = titleColor;
         fileTab.GetComponentInChildren<Text>().color = subTitleColor;
-        applyTab.GetComponentInChildren<Text>().color = subTitleColor;
+        classifyTab.GetComponentInChildren<Text>().color = subTitleColor;
         resultTab.GetComponentInChildren<Text>().color = subTitleColor;
 
         modelPanel.SetActive(false);
         recordPanel.SetActive(false);
         trainPanel.SetActive(true);
         filePanel.SetActive(false);
-        applyPanel.SetActive(false);
+        classifyPanel.SetActive(false);
         resultPanel.SetActive(false);
 
         uiManager_TrainPanel.RefreshPanel();
+    }
+
+    public void OpenClassifyPanel()
+    {
+        modelTab.GetComponentInChildren<Text>().color = subTitleColor;
+        recordTab.GetComponentInChildren<Text>().color = subTitleColor;
+        trainTab.GetComponentInChildren<Text>().color = subTitleColor;
+        classifyTab.GetComponentInChildren<Text>().color = subTitleColor;
+        fileTab.GetComponentInChildren<Text>().color = subTitleColor;
+        classifyTab.GetComponentInChildren<Text>().color = subTitleColor;
+        resultTab.GetComponentInChildren<Text>().color = subTitleColor;
+
+        modelPanel.SetActive(false);
+        recordPanel.SetActive(false);
+        trainPanel.SetActive(false);
+        filePanel.SetActive(false);
+        classifyPanel.SetActive(true);
+        resultPanel.SetActive(false);
+
+        uiManager_ClassifyPanel.RefreshPanel();
     }
 
     public void SetTalkbackMessage(string message)
@@ -174,114 +195,114 @@ public class UIManager : MonoBehaviour
 
 
 
-    public void openFP()
-    {
+    //public void openFP()
+    //{
         
-        fileTab.GetComponentInChildren<Text>().color = titleColor;
-        applyTab.GetComponentInChildren<Text>().color = subTitleColor;
-        resultTab.GetComponentInChildren<Text>().color = subTitleColor;
+    //    fileTab.GetComponentInChildren<Text>().color = titleColor;
+    //    applyTab.GetComponentInChildren<Text>().color = subTitleColor;
+    //    resultTab.GetComponentInChildren<Text>().color = subTitleColor;
 
-        filePanel.SetActive(true);
-        applyPanel.SetActive(false);
-        resultPanel.SetActive(false);
+    //    filePanel.SetActive(true);
+    //    applyPanel.SetActive(false);
+    //    resultPanel.SetActive(false);
 
-        // SingleFileSelector();
-        //ReadString();
-    }
+    //    // SingleFileSelector();
+    //    //ReadString();
+    //}
 
-    public void openAP()
-    {
-        fileTab.GetComponentInChildren<Text>().color = subTitleColor;
-        applyTab.GetComponentInChildren<Text>().color = titleColor;
-        resultTab.GetComponentInChildren<Text>().color = subTitleColor;
+    //public void openAP()
+    //{
+    //    fileTab.GetComponentInChildren<Text>().color = subTitleColor;
+    //    applyTab.GetComponentInChildren<Text>().color = titleColor;
+    //    resultTab.GetComponentInChildren<Text>().color = subTitleColor;
 
 
-        filePanel.SetActive(false);
-        applyPanel.SetActive(true);
-        resultPanel.SetActive(false);
-    }
+    //    filePanel.SetActive(false);
+    //    applyPanel.SetActive(true);
+    //    resultPanel.SetActive(false);
+    //}
 
-    public void openRP()
-    {
-        fileTab.GetComponentInChildren<Text>().color = subTitleColor;
-        applyTab.GetComponentInChildren<Text>().color = subTitleColor;
-        resultTab.GetComponentInChildren<Text>().color = titleColor;
+    //public void openRP()
+    //{
+    //    fileTab.GetComponentInChildren<Text>().color = subTitleColor;
+    //    applyTab.GetComponentInChildren<Text>().color = subTitleColor;
+    //    resultTab.GetComponentInChildren<Text>().color = titleColor;
 
-        filePanel.SetActive(false);
-        applyPanel.SetActive(false);
-        resultPanel.SetActive(true);
-    }
+    //    filePanel.SetActive(false);
+    //    applyPanel.SetActive(false);
+    //    resultPanel.SetActive(true);
+    //}
     //open main panel when click new Training
-    public void OpenMp1()
-    {
-        trainPanel.SetActive(true);
-    }
+    //public void OpenMp1()
+    //{
+    //    trainPanel.SetActive(true);
+    //}
 
-    //from mp1 to mp2 when click next button
-    public void Mp1ToMp2()
-    {
-        trainPanel.SetActive(false);
-        mainPanel_2.SetActive(true);
-    }
+    ////from mp1 to mp2 when click next button
+    //public void Mp1ToMp2()
+    //{
+    //    trainPanel.SetActive(false);
+    //    mainPanel_2.SetActive(true);
+    //}
 
-    //from mp2 to mp1 when click back button
-    public void Mp2ToMp1()
-    {
-        trainPanel.SetActive(true);
-        mainPanel_2.SetActive(false);
-    }
+    ////from mp2 to mp1 when click back button
+    //public void Mp2ToMp1()
+    //{
+    //    trainPanel.SetActive(true);
+    //    mainPanel_2.SetActive(false);
+    //}
     
 
-    public void Submit()
-    {
-        trainPanel.SetActive(false);
-        mainPanel_2.SetActive(false);
-    }
+    //public void Submit()
+    //{
+    //    trainPanel.SetActive(false);
+    //    mainPanel_2.SetActive(false);
+    //}
 
-    // open the addnvideopanel
-    public void OpenNewVideoPanel()
-    {
-        //addVideoPanel.SetActive(true);
-    }
-    // close the addnvideopanel
-    public void CloseNewVideoPanel()
-    {
-       // addVideoPanel.SetActive(false);
-    }
-    // submit add new video
-    public void AddNewVideo()
-    {
-        //addVideoPanel.SetActive(false);
-        trainPanel.SetActive(true);
-    }
+    //// open the addnvideopanel
+    //public void OpenNewVideoPanel()
+    //{
+    //    //addVideoPanel.SetActive(true);
+    //}
+    //// close the addnvideopanel
+    //public void CloseNewVideoPanel()
+    //{
+    //   // addVideoPanel.SetActive(false);
+    //}
+    //// submit add new video
+    //public void AddNewVideo()
+    //{
+    //    //addVideoPanel.SetActive(false);
+    //    trainPanel.SetActive(true);
+    //}
 
-    public void Close()
-    {
-        trainPanel.SetActive(false);
-       // addVideoPanel.SetActive(false);
-        mainPanel_2.SetActive(false);
-    }
+    //public void Close()
+    //{
+    //    trainPanel.SetActive(false);
+    //   // addVideoPanel.SetActive(false);
+    //    mainPanel_2.SetActive(false);
+    //}
 
     
 
-    public void ClearText()
-    {
-        //theText.GetComponent<InputField>().text = "";
-    }
+    //public void ClearText()
+    //{
+    //    //theText.GetComponent<InputField>().text = "";
+    //}
 
-    public void CancelButton()
-    {
-        //thePanel.SetActive(false);
-    }
+    //public void CancelButton()
+    //{
+    //    //thePanel.SetActive(false);
+    //}
 
-    public void OpenPanel()
-    {
-       // thePanel.SetActive(true);
-    }
+    //public void OpenPanel()
+    //{
+    //   // thePanel.SetActive(true);
+    //}
 
-    public void QuitButton()
-    {
-        Application.Quit();
-    }
+    //public void QuitButton()
+    //{
+    //    Application.Quit();
+    //}
 }
 

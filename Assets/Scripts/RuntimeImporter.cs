@@ -136,11 +136,13 @@ public class RuntimeImporter : MonoBehaviour
             // then we need an array like {1, 0, 1}
             if (recordingLabels.Contains(modelLabels[i])) // it should be safe to use i here because the size of the recordingVectorActionValues arary should be the same length as the modelFeatures array, because it was set above
             {
-                _rootGameObject.GetComponent<BehaviorParameters>().BrainParameters.VectorActionSize[i] = 1;
+                recordingVectorActionValues[i] = 1;
+                //_rootGameObject.GetComponent<BehaviorParameters>().BrainParameters.VectorActionSize[i] = 1;
             }
             else
             {
-                _rootGameObject.GetComponent<BehaviorParameters>().BrainParameters.VectorActionSize[i] = 0;
+                recordingVectorActionValues[i] = 0;
+                // _rootGameObject.GetComponent<BehaviorParameters>().BrainParameters.VectorActionSize[i] = 0;
             }
         }
 
