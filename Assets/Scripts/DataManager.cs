@@ -201,8 +201,8 @@ public class DataManager : MonoBehaviour
         {
             Debug.Log("There is no save data!");
         }
-        savedRecordingsByName.Clear();
-        savedModelsByName.Clear();
+        //savedRecordingsByName.Clear();
+        //savedModelsByName.Clear();
     }
 }
 

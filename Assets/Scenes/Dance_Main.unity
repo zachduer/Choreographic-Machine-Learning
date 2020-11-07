@@ -44010,7 +44010,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fbxFilesDirectory: C:\Users\Zach Duer\Desktop\Projects\Choreographic-Machine-Learning
-  jointListFilepath: C:\Users\Zach Duer\Desktop\Projects\Choreographic-Machine-Learning\Assets\JointLists\KinectJointList.txt
+  jointListFilepath: JointLists/KinectJointList
   behaviorName: motionCaptureRNN
   dataManager: {fileID: 1937682628}
 --- !u!4 &2003802577

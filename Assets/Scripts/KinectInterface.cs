@@ -15,12 +15,12 @@ public class KinectInterface : MonoBehaviour
     public OSCMessageSender oscMessageSender;
 
     private Thread kinectThread; // thread opened to call kinect script.
-    string applicationDataPath;
     string recordingFilename;
+    string executablePath; //Change this for where you store .exe
 
     private void Start()
     {
-        applicationDataPath = Application.dataPath;
+        executablePath = Application.dataPath + "/kinectProgram/azureTestProgram.exe"; //Change this for where you store .exe
     }
 
     /*
@@ -37,7 +37,7 @@ public class KinectInterface : MonoBehaviour
     public void StartRecording(string filename)
     {
         UnityEngine.Debug.Log("starting recording");
-        recordingFilename = filename + ".fbx";
+        recordingFilename = "\"" + Application.persistentDataPath + "/" + filename + ".fbx\"";
         kinectThread = new Thread(new ThreadStart(StartKinect));
         kinectThread.IsBackground = true;
         kinectThread.Start();
@@ -52,10 +52,9 @@ public class KinectInterface : MonoBehaviour
 
     void StartKinect()
     {
-        ProcessStartInfo start = new ProcessStartInfo();
-        start.Arguments = recordingFilename; //THIS IS WHAT YOU CHANGE        
-        //UnityEngine.Debug.Log("dataPath : " + Application.dataPath);
-        string executablePath = applicationDataPath + "/KinectProgram/azureProgram.exe"; //Change this for where you store .exe
+        ProcessStartInfo start = new ProcessStartInfo();        
+        start.Arguments = recordingFilename; //THIS IS WHAT YOU CHANGE
+        UnityEngine.Debug.Log(start.Arguments);      
         start.FileName = executablePath;
         start.WindowStyle = ProcessWindowStyle.Hidden;
         start.CreateNoWindow = true;

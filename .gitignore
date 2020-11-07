@@ -65,6 +65,9 @@ crashlytics-build.properties
 *.csv
 *.txt
 
+# Allow the KinectJointList.txt
+!KinectJointList.txt
+
 # Everything inside summaries, so not sharing training logs
 Assets/summaries/*
 

@@ -25,11 +25,12 @@ public class RuntimeImporter : MonoBehaviour
 
     void Start()
     {
+        //Change fbxFilesDirectory to persistentDataPath
+        fbxFilesDirectory = Application.persistentDataPath;
+
         // The commented out line will work when we have a data structure for features working
         //FeatureLabels[] allLabels = ImportCSVLabels(csvLabelsFilepath);
-
         jointNames = ImportJointList(jointListFilepath);
-
         // The commented out line will work when we have a data structure for features working
         //ImportFBXDirectory(fbxFilesDirectory, allLabels, jointNames);
         //ImportFBXDirectory(fbxFilesDirectory, jointNames);
@@ -47,10 +48,10 @@ public class RuntimeImporter : MonoBehaviour
 
     string[] ImportJointList(string filepath)
     {
-        using (StreamReader r = new StreamReader(filepath))
+        using (StringReader r = new StringReader(Resources.Load<TextAsset>(filepath).text))
         {
             List<string> jointNames = new List<string>();
-            while (!r.EndOfStream)
+            while (r.Peek() != -1)
             {
                 var line = r.ReadLine();
                 jointNames.Add(line);
