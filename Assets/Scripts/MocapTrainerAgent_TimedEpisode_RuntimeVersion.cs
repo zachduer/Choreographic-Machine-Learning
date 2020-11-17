@@ -140,7 +140,12 @@ public class MocapTrainerAgent_TimedEpisode_RuntimeVersion : Agent
     {
         numSteps++;
 
-        currentAnimationTime = anim[recordingName].time;
+        foreach (AnimationState state in anim)
+        {
+            Debug.Log("animation state name: " + state.name);
+        }
+
+        currentAnimationTime = anim["Animation Stack"].time;
 
         for (int i = 0; i < vectorAction.Length; i++)
         {
