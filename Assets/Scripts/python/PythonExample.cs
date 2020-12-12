@@ -13,12 +13,12 @@ public class PythonExample : MonoBehaviour {
         ICollection<string> searchPaths = engine.GetSearchPaths();
 
         //Path to the folder of greeter.py
-        searchPaths.Add(Application.dataPath);
+        searchPaths.Add(Application.dataPath + @"\Scripts\python\");
         //Path to the Python standard library
         searchPaths.Add(Application.dataPath + @"\Plugins\Lib\");
         engine.SetSearchPaths(searchPaths);
 
-        dynamic py = engine.ExecuteFile(Application.dataPath + @"\greeter.py");
+        dynamic py = engine.ExecuteFile(Application.dataPath + @"\Scripts\python\greeter.py");
         dynamic greeter = py.Greeter("Mika");
         Debug.Log(greeter.greet());
         Debug.Log(greeter.random_number(1,5));
