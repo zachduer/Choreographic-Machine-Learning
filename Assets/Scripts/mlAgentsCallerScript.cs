@@ -11,7 +11,7 @@ public class mlAgentsCallerScript : MonoBehaviour
     string brainFileName;
     string settings;
 
-    Thread mlAgentsThread; // thread opened to call kinect script.
+    Thread mlAgentsThread; // thread opened to call mlagents script.
 
     void Start()
     {
@@ -23,12 +23,12 @@ public class mlAgentsCallerScript : MonoBehaviour
         pythonFileName += "python.exe";
         scriptFileName += "Lib/site-packages/mlagents/trainers/learn.py";
 
-        brainFileName = Application.dataPath + "/BrainConfig/motionCaptureRNN.yaml";
-        settings = "--run-id=sometestname --force --time-scale 1";
+        brainFileName = Application.dataPath + "/BrainConfig/motionCaptureRNN.yaml";        
     }
 
-    public void buttonPress()
+    public void buttonPress(string testName)
     {
+        settings = "\"" + brainFileName + "\" --run-id=" + testName + " --force --time-scale 1";
         UnityEngine.Debug.Log("mlagents script clicked.");
         mlAgentsThread = new Thread(new ThreadStart(startMlAgentsScript));
         mlAgentsThread.IsBackground = true;
@@ -38,17 +38,10 @@ public class mlAgentsCallerScript : MonoBehaviour
     void startMlAgentsScript()
     {
         ProcessStartInfo start = new ProcessStartInfo();
-        start.FileName = pythonFileName;
-        start.Arguments = string.Format("{0} {1} {2}", scriptFileName, brainFileName, settings); //mlagentsProgram brainYaml runSettings
-        start.WindowStyle = ProcessWindowStyle.Hidden;
-        start.CreateNoWindow = true;
-        int exitCode;
-
-        using (Process proc = Process.Start(start))
-        {
-            proc.WaitForExit();
-            exitCode = proc.ExitCode;
-        }
-        UnityEngine.Debug.Log(exitCode);
+        start.FileName = "cmd.exe";
+        start.Arguments = string.Format("{0} {1} {2}", "/C", "mlagents-learn", settings); //mlagentsProgram brainYaml runSettings
+        //start.WindowStyle = ProcessWindowStyle.Hidden;
+        //start.CreateNoWindow = true;
+        Process proc = Process.Start(start);
     }
 }

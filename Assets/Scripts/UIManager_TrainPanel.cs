@@ -26,11 +26,20 @@ public class UIManager_TrainPanel : MonoBehaviour
 
     public RuntimeImporter runtimeImporter;
 
+    public mlAgentsCallerScript mlAgent;
+
     public void RefreshPanel()
     {
         RefreshModelDropdown(dataManager.GetModelNames());
         RefreshRecordingsUIList();
         RefreshLoadedRecordingsUIList();
+    }
+
+    public void startMLAgents()
+    {
+        string selectedModelName = modelDropdown.options[modelDropdown.value].text;
+        //Start mlAgents Script
+        mlAgent.buttonPress(selectedModelName);
     }
 
     public void StartTraining()
@@ -39,6 +48,7 @@ public class UIManager_TrainPanel : MonoBehaviour
         trainButtonActive.SetActive(true);
 
         string selectedModelName = modelDropdown.options[modelDropdown.value].text;
+
         runtimeImporter.StartImportAndTraining(loadedRecordingNames, selectedModelName);
     }
 
