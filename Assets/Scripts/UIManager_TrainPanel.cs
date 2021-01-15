@@ -56,6 +56,14 @@ public class UIManager_TrainPanel : MonoBehaviour
     {
         trainButton.SetActive(true);
         trainButtonActive.SetActive(false);
+
+        GameObject parent = GameObject.Find("Trainer");
+
+        foreach(Transform child in parent.transform)
+        {
+            Debug.Log("test");
+            Destroy(child.gameObject);
+        }
     }
 
     //public void SelectModel(TMP_Dropdown dropdown)
