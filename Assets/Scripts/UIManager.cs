@@ -54,6 +54,7 @@ public class UIManager : MonoBehaviour
         //trainPanel.SetActive(false);
         //mainPanel_2.SetActive(false);
     }
+    /*
     public void SingleFileSelector()
     {
         string path = EditorUtility.OpenFilePanel("Select Skeleton File", "", "fbx");
@@ -88,6 +89,7 @@ public class UIManager : MonoBehaviour
         fileTab.GetComponentInChildren<Text>().text = firstLine;
         reader.Close();
     }
+    */
 
     
 

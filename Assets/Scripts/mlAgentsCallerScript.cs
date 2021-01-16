@@ -23,12 +23,19 @@ public class mlAgentsCallerScript : MonoBehaviour
         pythonFileName += "python.exe";
         scriptFileName += "Lib/site-packages/mlagents/trainers/learn.py";
 
-        brainFileName = Application.dataPath + "/BrainConfig/motionCaptureRNN.yaml";        
+        brainFileName = Application.dataPath + "/StreamingAssets/BrainConfig/motionCaptureRNN.yaml";        
     }
 
     public void buttonPress(string testName)
     {
-        settings = "\"" + brainFileName + "\" --run-id=" + testName + " --force --time-scale 1";
+        if (Application.isEditor)
+        {
+            settings = "\"" + brainFileName + "\" --run-id=" + testName + " --force --time-scale 1";
+        }
+        else
+        {
+            settings = "\"" + brainFileName + "\" --env=AIChoreography --run-id=" + testName + " --force --time-scale 1 --width 1280 --height 720";
+        }
         UnityEngine.Debug.Log("mlagents script clicked.");
         mlAgentsThread = new Thread(new ThreadStart(startMlAgentsScript));
         mlAgentsThread.IsBackground = true;

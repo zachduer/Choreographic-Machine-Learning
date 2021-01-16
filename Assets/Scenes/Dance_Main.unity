@@ -44262,7 +44262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 629bbab49d4dde74c80b37ea161e572a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fbxFilesDirectory: C:\Users\Zach Duer\Desktop\Projects\Choreographic-Machine-Learning
+  fbxFilesDirectory: F:\OneDrive - Virginia Tech\Classes\2020 Fall\Choreographic ML\build
   jointListFilepath: JointLists/KinectJointList
   behaviorName: motionCaptureRNN
   dataManager: {fileID: 1937682628}
