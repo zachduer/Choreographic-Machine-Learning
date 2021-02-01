@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Diagnostics;
+using System.Threading;
 
 public class UIManager_TrainPanel : MonoBehaviour
 {
@@ -61,9 +63,23 @@ public class UIManager_TrainPanel : MonoBehaviour
 
         foreach(Transform child in parent.transform)
         {
-            Debug.Log("test");
+            UnityEngine.Debug.Log("test");
             Destroy(child.gameObject);
         }
+
+        Thread restartThread = new Thread(new ThreadStart(restartThreadScript));
+        restartThread.IsBackground = true;
+        restartThread.Start();
+
+        Application.Quit();
+    }
+
+    private void restartThreadScript()
+    {
+        ProcessStartInfo start = new ProcessStartInfo();
+        start.FileName = "cmd.exe";
+        start.Arguments = string.Format("{0} {1}", "/C", "AIChoreography");
+        Process proc = Process.Start(start);
     }
 
     //public void SelectModel(TMP_Dropdown dropdown)
