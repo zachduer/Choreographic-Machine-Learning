@@ -78,7 +78,7 @@ public class UIManager_TrainPanel : MonoBehaviour
     {
         ProcessStartInfo start = new ProcessStartInfo();
         start.FileName = "cmd.exe";
-        start.Arguments = string.Format("{0} {1}", "/C", "AIChoreography");
+        start.Arguments = string.Format("{0} {1}", "/C", "..\\..\\AIChoreography");
         Process proc = Process.Start(start);
     }
 

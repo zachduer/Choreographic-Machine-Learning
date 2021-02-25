@@ -149,6 +149,7 @@ public class MocapTrainerAgent_TimedEpisode_RuntimeVersion : Agent
 
         for (int i = 0; i < vectorAction.Length; i++)
         {
+            Debug.Log(vectorAction[i]);
             if (episodeTimer < episodeDuration)
             {
                 // The commented out line works when we have a data structure for features working

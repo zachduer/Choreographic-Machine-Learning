@@ -21,6 +21,8 @@ public class UIManager_ClassifyPanel : MonoBehaviour
     public GameObject classifyButton;
     //public GameObject applyButtonActive;
 
+    public RuntimeImporter runtimeImporter;
+
     public void RefreshPanel()
     {
         RefreshModelDropdown(dataManager.GetModelNames());
@@ -81,6 +83,9 @@ public class UIManager_ClassifyPanel : MonoBehaviour
 
     public void StartClassification()
     {
-        
+        string selectedModelName = modelDropdown.options[modelDropdown.value].text;
+        List<string> loadedRecordingNames = new List<string>();
+        loadedRecordingNames.Add(selectedRecordingName.text);
+        runtimeImporter.StartImportAndClassifying(loadedRecordingNames, selectedModelName);
     }
 }

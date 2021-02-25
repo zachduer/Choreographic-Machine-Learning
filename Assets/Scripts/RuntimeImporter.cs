@@ -5,6 +5,7 @@ using UnityEngine;
 using System.IO;
 using TriLib;
 using Unity.MLAgents.Policies;
+using Unity.Barracuda;
 
 public class RuntimeImporter : MonoBehaviour
 {
@@ -43,7 +44,12 @@ public class RuntimeImporter : MonoBehaviour
 
     public void StartImportAndTraining(List<string> recordingNames, string modelName)
     {
-        ImportFBXDirectory(recordingNames, modelName, fbxFilesDirectory, jointNames);
+        ImportFBXDirectory(recordingNames, modelName, fbxFilesDirectory, jointNames, "Train");
+    }
+
+    public void StartImportAndClassifying(List<string> recordingNames, string modelName)
+    {
+        ImportFBXDirectory(recordingNames, modelName, fbxFilesDirectory, jointNames, "Classify");
     }
 
     string[] ImportJointList(string filepath)
@@ -63,7 +69,7 @@ public class RuntimeImporter : MonoBehaviour
 
     // The commented out line will work when we have a data structure for features working
     //void ImportFBXDirectory(string directory, FeatureLabels[] allLabels, string[] jointNames)
-    void ImportFBXDirectory(List<string> recordingNames, string modelName, string directory, string[] jointNames)
+    void ImportFBXDirectory(List<string> recordingNames, string modelName, string directory, string[] jointNames, string mode)
     {
         Debug.Log("importing fbx files");
         DirectoryInfo d = new DirectoryInfo(directory);
@@ -80,13 +86,20 @@ public class RuntimeImporter : MonoBehaviour
 
             string recordingName = fbxFileName;
             // The commented out line will work when we have a data structure for features working
-            ImportFile(directory, fbxFiles[i].Name, i, modelName, dataManager.GetLabelsFromRecording(recordingName), jointNames);
-            //ImportFile(directory, fbxFiles[i].Name, i, jointNames);
+            if(mode == "Train")
+            {
+                ImportTrainFile(directory, fbxFiles[i].Name, i, modelName, dataManager.GetLabelsFromRecording(recordingName), jointNames);
+                //ImportFile(directory, fbxFiles[i].Name, i, jointNames);
+            }
+            else if(mode == "Classify")
+            {
+                ImportClassifyFile(directory, fbxFiles[i].Name, i, modelName, dataManager.GetLabelsFromRecording(recordingName), jointNames);
+            }
         }
     }
     
     // The commented out line will work when we have a data structure for features working
-    void ImportFile(string directory, string fileName, int fileIndex, string modelName, List<string> recordingLabels, string[] jointNames)
+    void ImportTrainFile(string directory, string fileName, int fileIndex, string modelName, List<string> recordingLabels, string[] jointNames)
     //void ImportFile(string directory, string fileName, int fileIndex, string[] jointNames)
     {
         string filePath = directory + "/" + fileName;
@@ -159,5 +172,88 @@ public class RuntimeImporter : MonoBehaviour
             recordingVectorActionValues
             );
                
+    }
+
+    // Modified version of ImportTrainFile for importing nn file
+    void ImportClassifyFile(string directory, string fileName, int fileIndex, string modelName, List<string> recordingLabels, string[] jointNames)
+    //void ImportFile(string directory, string fileName, int fileIndex, string[] jointNames)
+    {
+        string filePath = directory + "/" + fileName;
+        var assetLoader = new AssetLoader();
+        var assetLoaderOptions = AssetLoaderOptions.CreateInstance();
+        assetLoaderOptions.AutoPlayAnimations = true;
+        assetLoaderOptions.AnimationWrapMode = WrapMode.Loop;
+        assetLoaderOptions.UseOriginalPositionRotationAndScale = true;
+
+        //Debug.Log("filename: " + fileName);
+        string recordingName = fileName.Replace(".fbx", "");
+        //Debug.Log("recordingName: " + recordingName);
+
+        _rootGameObject = assetLoader.LoadFromFileWithTextures(filePath, assetLoaderOptions);
+        _rootGameObject.name = recordingName;
+        _rootGameObject.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
+        _rootGameObject.transform.parent = transform;
+
+
+        _rootGameObject.AddComponent<JointVisualizer>();
+
+        _rootGameObject.AddComponent<BehaviorParameters>();
+        // all the behavior parameters has to be here and not in the Agent Init in order for it to work for some reason. i haven't been able to figure out why that might be, but who cares?
+        _rootGameObject.GetComponent<BehaviorParameters>().BehaviorName = "MotionCaptureRNN";
+        _rootGameObject.GetComponent<BehaviorParameters>().BrainParameters.VectorObservationSize = jointNames.Length * 4 + 3; // number of joints times 4 quaternion values per joint, plus 3 position values for the hips
+        _rootGameObject.GetComponent<BehaviorParameters>().BrainParameters.VectorActionSpaceType = SpaceType.Discrete;
+
+        // Add nn file
+        NNModel model = new NNModel();
+        model.modelData = new NNModelData();
+        model.modelData.Value = File.ReadAllBytes(Application.streamingAssetsPath + "/results/testName/MotionCaptureRNN.nn");
+        _rootGameObject.GetComponent<BehaviorParameters>().Model = model;
+
+
+        // The commented out line will work when we have a data structure for features working
+        List<string> modelLabels = dataManager.GetLabelsFromModel(modelName);
+        int numLabelsInModel = modelLabels.Count;
+        _rootGameObject.GetComponent<BehaviorParameters>().BrainParameters.VectorActionSize = new int[numLabelsInModel];
+        //_rootGameObject.GetComponent<BehaviorParameters>().BrainParameters.VectorActionSize = new int[2]; // this will need to be changed to match the features list
+
+        // For now, we're using a vectoractionsize value of 2 for each vector action.
+        // Because we're using binary labels that are either true or false.  Ie.It either is labeled "twisting" or it's not.
+        for (int i = 0; i < _rootGameObject.GetComponent<BehaviorParameters>().BrainParameters.VectorActionSize.Length; i++)
+        {
+            _rootGameObject.GetComponent<BehaviorParameters>().BrainParameters.VectorActionSize[i] = 2;
+        }
+
+        int[] recordingVectorActionValues = new int[numLabelsInModel];
+        for (int i = 0; i < recordingVectorActionValues.Length; i++)
+        {
+            // We need to make the list of labels for this recording conform to array of all the possible labels for the model
+            // where the value at each index corresponds to whether that label is present for this model.
+            // For example, if the possible labels are:  Arc, Twist, Bend
+            // and this recording has the labels: Arc, Bend
+            // then we need an array like {1, 0, 1}
+            if (recordingLabels.Contains(modelLabels[i])) // it should be safe to use i here because the size of the recordingVectorActionValues arary should be the same length as the modelFeatures array, because it was set above
+            {
+                recordingVectorActionValues[i] = 1;
+                //_rootGameObject.GetComponent<BehaviorParameters>().BrainParameters.VectorActionSize[i] = 1;
+            }
+            else
+            {
+                recordingVectorActionValues[i] = 0;
+                // _rootGameObject.GetComponent<BehaviorParameters>().BrainParameters.VectorActionSize[i] = 0;
+            }
+        }
+
+
+
+        //Debug.Log("adding agent component");
+        _rootGameObject.AddComponent<MocapTrainerAgent_TimedEpisode_RuntimeVersion>();
+        //Debug.Log("calling init on agent component");
+        _rootGameObject.GetComponent<MocapTrainerAgent_TimedEpisode_RuntimeVersion>().Init(
+            recordingName,
+            jointNames,
+            behaviorName,
+            recordingVectorActionValues
+            );
+
     }
 }
